@@ -7,11 +7,22 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Redis;
 
 Class RedisService implements RedisHelperInterface{
-
+    
+    /**
+    * @var Illuminate\Support\Facades\Redis
+    */
     protected $redis;
 
+    /**
+    * @var string
+    */
     protected $callable_key;
-
+    
+    /**
+     * __construct
+     *
+     * @return void
+     */
     public function __construct()
     {
         $this->redis = Redis::connection();
@@ -39,5 +50,14 @@ Class RedisService implements RedisHelperInterface{
         $updated_cache = Arr::prepend($cached_data,$new_data);
         # Set the Updated Cache to Redis
         $this->redis->set($this->callable_key,json_encode($updated_cache));
+    }
+    
+    /**
+     * retrieverecentMessages
+     *
+     * @return array
+     */
+    public function retrieverecentMessages():array{
+        return  json_decode($this->redis->get($this->callable_key));
     }
 }

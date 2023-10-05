@@ -2,11 +2,26 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Str;
 use Elasticsearch\ClientBuilder;
 use App\Utilities\Contracts\ElasticsearchHelperInterface;
 
 Class ElasticSearchService implements ElasticsearchHelperInterface{
+
+    /**
+    * @var Elasticsearch\ClientBuilder
+    */
+    protected $client;
+    
+    /**
+     * __construct
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->client = ClientBuilder::create()->build();
+    }
+
     
     /**
      * storeEmail
@@ -27,7 +42,19 @@ Class ElasticSearchService implements ElasticsearchHelperInterface{
             ],
             'index' => $index
         ];
-        $client = ClientBuilder::create()->build();
-        return $client->index($data);
+        return $this->client->index($data);
+    }
+    
+    /**
+     * retrieveEmail
+     * @param string $elastic_search_id
+     * @param string $elastic_search_index
+     * @return mixed
+     */
+    public function retrieveEmail(string $elastic_search_id, string $elastic_search_index): mixed{
+        return $this->client->get([
+                    'index' => $elastic_search_index,
+                    'id' => $elastic_search_id,
+               ]);;
     }
 }

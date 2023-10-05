@@ -13,4 +13,12 @@ interface ElasticsearchHelperInterface {
      * @return mixed - Return the id of the record inserted into Elasticsearch
      */
     public function storeEmail(string $index, string $messageBody, string $messageSubject, string $toEmailAddress): mixed;
+    
+    /**
+     * retrieveEmail
+     * @param string $elastic_search_id
+     * @param string $elastic_search_index
+     * @return mixed
+     */
+    public function retrieveEmail(string $elastic_search_id, string $elastic_search_index):mixed;
 }

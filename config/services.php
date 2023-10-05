@@ -32,6 +32,14 @@ return [
 
     'emails_cache' => [
         'callable_key' => env('EMAILS_CACHE_CALLABLE_KEY', 'emails_data') 
-    ]
+    ],
+
+    'elastic_search' => [
+        'indexes' => [
+            'emails'    => 'email_data',
+            'test'      => 'testing_index',
+            'test_1'    => 'testing_index_1'
+        ]
+    ],
 
 ];

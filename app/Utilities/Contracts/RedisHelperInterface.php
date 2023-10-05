@@ -14,4 +14,11 @@ interface RedisHelperInterface {
      * @return void
      */
     public function storeRecentMessage(mixed $id, string $messageSubject, string $toEmailAddress): void;
+    
+    /**
+     * retrieverecentMessages
+     *
+     * @return array
+     */
+    public function retrieverecentMessages():array;
 }
