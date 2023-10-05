@@ -14,10 +14,11 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::middleware('verify_token')->group(function(){
+    Route::post("/{user}/send",[EmailController::class, "send"])->name("email.send");
+    Route::get("/list",[EmailController::class, "list"])->name("email.list");
+});
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::post("/{user}/send",[EmailController::class, "send"])->name("email.send");
-Route::get("/list",[EmailController::class, "list"])->name("email.list");
